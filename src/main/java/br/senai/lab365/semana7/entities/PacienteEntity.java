@@ -20,7 +20,7 @@ public class PacienteEntity {
     private String telefone;
     private String email;
     @ManyToOne
-    private Endereco endereco;
+    private EnderecoEntity enderecoEntity;
 
 }
 
