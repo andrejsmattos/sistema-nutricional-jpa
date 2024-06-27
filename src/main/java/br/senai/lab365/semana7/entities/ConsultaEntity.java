@@ -16,9 +16,9 @@ public class ConsultaEntity {
     private Long id;
 
     @ManyToOne
-    private Nutricionista nutricionista;
+    private NutricionistaEntity nutricionistaEntity;
     @ManyToOne
-    private Paciente paciente;
+    private PacienteEntity pacienteEntity;
     private LocalDate dataConsulta;
     private String observacoes;
 

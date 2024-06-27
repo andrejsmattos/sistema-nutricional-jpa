@@ -15,6 +15,6 @@ public class FuncionarioEntity {
     private String matricula;
     private int tempoExperiencia;
     @ManyToOne
-    private Endereco endereco;
+    private EnderecoEntity enderecoEntity;
 
 }
