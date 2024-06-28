@@ -82,6 +82,12 @@ INSERT INTO paciente (nome, dataNascimento, cpf, telefone, email, endereco_id) V
 
 SELECT * FROM paciente;
 
+UPDATE paciente
+SET telefone = '(48) 98765-4321'
+WHERE id = 1;
+
+SELECT * FROM paciente
+WHERE id = 1;
 
 --------------------------------------------------------------------------------------------
 -- CONSULTA
