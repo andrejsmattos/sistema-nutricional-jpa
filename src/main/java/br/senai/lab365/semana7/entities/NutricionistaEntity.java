@@ -11,7 +11,6 @@ public class NutricionistaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String CRN;
     private String especialidade;
 
