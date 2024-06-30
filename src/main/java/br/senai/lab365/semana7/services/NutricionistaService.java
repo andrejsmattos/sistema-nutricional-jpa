@@ -17,7 +17,7 @@ public class NutricionistaService {
     @Autowired
     private NutricionistaRepository nutricionistaRepository;
 
-    private NutricionistaResponseDTO criarNutricionista (NutricionistaRequestDTO requestDTO) {
+    public NutricionistaResponseDTO criarNutricionista (NutricionistaRequestDTO requestDTO) {
         NutricionistaEntity nutricionista = new NutricionistaEntity();
         nutricionista.setCRN(requestDTO.getCRN());
         nutricionista.setEspecialidade(requestDTO.getEspecialidade());
@@ -25,14 +25,14 @@ public class NutricionistaService {
         return converterEntidadeParaResponseDTO(nutricionista);
     }
 
-    private List<NutricionistaResponseDTO> listarTodosNutricionistas () {
+    public List<NutricionistaResponseDTO> listarTodosNutricionistas () {
         List<NutricionistaEntity> nutricionistas = nutricionistaRepository.findAll();
         return nutricionistas.stream()
                 .map(this::converterEntidadeParaResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    private NutricionistaResponseDTO listarNutricionistaPorId (Long id) {
+    public NutricionistaResponseDTO listarNutricionistaPorId (Long id) {
         NutricionistaEntity nutricionista = nutricionistaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("O nutricionista com este id não foi encontrado."));
         return converterEntidadeParaResponseDTO(nutricionista);
@@ -52,7 +52,7 @@ public class NutricionistaService {
         nutricionistaRepository.delete(nutricionista);
     }
 
-    public NutricionistaResponseDTO converterEntidadeParaResponseDTO (NutricionistaEntity nutricionista) {
+    private NutricionistaResponseDTO converterEntidadeParaResponseDTO (NutricionistaEntity nutricionista) {
         NutricionistaResponseDTO nutricionistaResponseDTO = new NutricionistaResponseDTO();
         BeanUtils.copyProperties(nutricionista, nutricionistaResponseDTO);
         return nutricionistaResponseDTO;
