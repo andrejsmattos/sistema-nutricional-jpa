@@ -44,7 +44,6 @@ public class EnderecoService {
     public EnderecoResponseDTO atualizarEndereco (Long id, EnderecoRequestDTO requestDTO){
         EnderecoEntity endereco = enderecoRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("O endereço com este id não foi encontrado."));
-
         BeanUtils.copyProperties(requestDTO, endereco);
         enderecoRepository.save(endereco);
         return converterEntidadeparaResponseDTO(endereco);
