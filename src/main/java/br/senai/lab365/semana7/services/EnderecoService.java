@@ -28,7 +28,7 @@ public class EnderecoService {
         return converterEntidadeparaResponseDTO(endereco);
     }
 
-    public List<EnderecoResponseDTO> listarTodosEnderecos (Long id) {
+    public List<EnderecoResponseDTO> listarTodosEnderecos () {
         List<EnderecoEntity> enderecos = enderecoRepository.findAll();
             return enderecos.stream()
                     .map(this::converterEntidadeparaResponseDTO)
