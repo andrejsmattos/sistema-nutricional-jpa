@@ -17,16 +17,13 @@ public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public EnderecoResponseDTO criarEndereco (EnderecoRequestDTO requestDTO){
+    public EnderecoResponseDTO criarEndereco(EnderecoRequestDTO requestDTO){
         EnderecoEntity endereco = new EnderecoEntity();
-        endereco.setLogradouro(requestDTO.getLogradouro());
-        endereco.setEstado(requestDTO.getEstado());
-        endereco.setCidade(requestDTO.getCidade());
-        endereco.setNumero(requestDTO.getNumero());
-        endereco.setCep(requestDTO.getCep());
+        BeanUtils.copyProperties(requestDTO, endereco);
         enderecoRepository.save(endereco);
         return converterEntidadeparaResponseDTO(endereco);
     }
+
 
     public List<EnderecoResponseDTO> listarTodosEnderecos () {
         List<EnderecoEntity> enderecos = enderecoRepository.findAll();
