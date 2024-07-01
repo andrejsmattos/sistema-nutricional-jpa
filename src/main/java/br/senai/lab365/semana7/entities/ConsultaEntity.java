@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -19,7 +19,7 @@ public class ConsultaEntity {
     private NutricionistaEntity nutricionistaEntity;
     @ManyToOne
     private PacienteEntity pacienteEntity;
-    private LocalDate dataConsulta;
+    private LocalDateTime dataHora;
     private String observacoes;
 
 }

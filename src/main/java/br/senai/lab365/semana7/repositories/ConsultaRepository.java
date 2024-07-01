@@ -10,4 +10,8 @@ import java.util.List;
 
 public interface ConsultaRepository extends JpaRepository<ConsultaEntity, Long> {
 
+    List<ConsultaEntity> buscarNutricionistaPorNome (String nomeNutricionista);
+
+    List<ConsultaEntity> buscarPacientePorNome(String nomePaciente);
+
 }

@@ -55,6 +55,16 @@ public class ConsultaService {
         return converterEntidadeParaResponseDTO(consulta);
     }
 
+    public List<ConsultaResponseDTO> listarConsultasPorNomeNutricionista(String nomeNutricionista) {
+        List<ConsultaEntity> consultas = consultaRepository.buscarNutricionistaPorNome(nomeNutricionista);
+        return consultas.stream().map(this::converterEntidadeParaResponseDTO).collect(Collectors.toList());
+    }
+
+    public List<ConsultaResponseDTO> listarConsultasPorNomePaciente(String nomePaciente) {
+        List<ConsultaEntity> consultas = consultaRepository.buscarPacientePorNome(nomePaciente);
+        return consultas.stream().map(this::converterEntidadeParaResponseDTO).collect(Collectors.toList());
+    }
+
     public ConsultaResponseDTO atualizarConsulta (Long id, ConsultaRequestDTO requestDTO) {
         ConsultaEntity consulta = consultaRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("A consulta com este id não foi encontrada."));
