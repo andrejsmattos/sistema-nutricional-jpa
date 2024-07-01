@@ -10,7 +10,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,6 +28,8 @@ public class PacienteService {
 
         EnderecoEntity endereco = enderecoRepository.findById(requestDTO.getEnderecoId())
                 .orElseThrow(()->new RuntimeException("O endereço com este id não foi encontrado."));
+        paciente.setEnderecoEntity(endereco);
+
         paciente = pacienteRepository.save(paciente);
         return converterEntidadeParaResponseDTO(paciente);
     }
@@ -49,6 +50,11 @@ public class PacienteService {
         PacienteEntity paciente = pacienteRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("O paciente com este id não foi encontrado"));
         BeanUtils.copyProperties(requestDTO, paciente);
+
+        EnderecoEntity endereco = enderecoRepository.findById(requestDTO.getEnderecoId())
+                .orElseThrow(() -> new RuntimeException("O endereço com este id não foi encontrado."));
+        paciente.setEnderecoEntity(endereco);
+
         pacienteRepository.save(paciente);
         return converterEntidadeParaResponseDTO(paciente);
     }

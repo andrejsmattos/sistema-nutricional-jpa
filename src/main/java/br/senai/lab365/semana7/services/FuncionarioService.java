@@ -28,6 +28,8 @@ public class FuncionarioService {
 
         EnderecoEntity endereco = enderecoRepository.findById(requestDTO.getEnderecoId())
                 .orElseThrow(()->new RuntimeException("O endereço com este id não foi encontrado."));
+        funcionario.setEnderecoEntity(endereco);
+
         funcionario = funcionarioRepository.save(funcionario);
         return converterEntidadeParaResponseDTO(funcionario);
     }
@@ -48,6 +50,12 @@ public class FuncionarioService {
         FuncionarioEntity funcionario = funcionarioRepository.findById(id)
                 .orElseThrow(()-> new RuntimeException("O funcionário com este id não foi encontrado."));
         BeanUtils.copyProperties(requestDTO, funcionario);
+
+        EnderecoEntity endereco = enderecoRepository.findById(requestDTO.getEnderecoId())
+                .orElseThrow(() -> new RuntimeException("O endereço com este id não foi encontrado."));
+
+        funcionario.setEnderecoEntity(endereco);
+
         funcionarioRepository.save(funcionario);
         return converterEntidadeParaResponseDTO(funcionario);
     }
