@@ -10,17 +10,4 @@ import java.util.List;
 
 public interface ConsultaRepository extends JpaRepository<ConsultaEntity, Long> {
 
-//    List<ConsultaEntity> findAll()
-
-//    private static final List<ConsultaEntity> consultas = new ArrayList<>();
-//    private static final ultimoID;
-//
-//    public List<ConsultaEntity> listar() {
-//        return consultas;
-//    }
-//
-//    public ConsultaEntity listarConsultaPorId(int id){
-//        return consultas.stream()
-//                .filter(consulta -> id == consulta.getId())
-//    }
 }

@@ -3,9 +3,8 @@ package br.senai.lab365.semana7.controllers.dtos;
 import lombok.Data;
 
 @Data
-public class NutricionistaResponseDTO {
+public class NutricionistaResponseDTO extends FuncionarioResponseDTO {
 
-    private Long id;
-    private String CRN;
+    private String crn;
     private String especialidade;
 }

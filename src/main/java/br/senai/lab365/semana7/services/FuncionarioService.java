@@ -2,6 +2,7 @@ package br.senai.lab365.semana7.services;
 
 import br.senai.lab365.semana7.controllers.dtos.FuncionarioRequestDTO;
 import br.senai.lab365.semana7.controllers.dtos.FuncionarioResponseDTO;
+import br.senai.lab365.semana7.controllers.dtos.NutricionistaResponseDTO;
 import br.senai.lab365.semana7.entities.EnderecoEntity;
 import br.senai.lab365.semana7.entities.FuncionarioEntity;
 import br.senai.lab365.semana7.repositories.EnderecoRepository;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class FuncionarioService {
+public abstract class FuncionarioService {
 
     @Autowired
     private FuncionarioRepository funcionarioRepository;
@@ -22,33 +23,33 @@ public class FuncionarioService {
     @Autowired
     private EnderecoRepository enderecoRepository;
 
-    public FuncionarioResponseDTO criarFuncionario (FuncionarioRequestDTO requestDTO) {
+    public FuncionarioResponseDTO criarFuncionario(FuncionarioRequestDTO requestDTO) {
         FuncionarioEntity funcionario = new FuncionarioEntity();
         BeanUtils.copyProperties(requestDTO, funcionario);
 
         EnderecoEntity endereco = enderecoRepository.findById(requestDTO.getEnderecoId())
-                .orElseThrow(()->new RuntimeException("O endereço com este id não foi encontrado."));
+                .orElseThrow(() -> new RuntimeException("O endereço com este id não foi encontrado."));
         funcionario.setEnderecoEntity(endereco);
 
         funcionario = funcionarioRepository.save(funcionario);
-        return converterEntidadeParaResponseDTO(funcionario);
+        return converterFuncionarioParaResponseDTO(funcionario);
     }
 
-    public List<FuncionarioResponseDTO> listarTodosFuncionarios () {
+    public List<FuncionarioResponseDTO> listarTodosFuncionarios() {
         List<FuncionarioEntity> funcionarios = funcionarioRepository.findAll();
-        return funcionarios.stream().map(this::converterEntidadeParaResponseDTO)
+        return funcionarios.stream().map(this::converterFuncionarioParaResponseDTO)
                 .collect(Collectors.toList());
     }
 
-    public FuncionarioResponseDTO listarFuncionarioPorId (Long id) {
+    public FuncionarioResponseDTO listarFuncionarioPorId(Long id) {
         FuncionarioEntity funcionario = funcionarioRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("O funcionário com este id não foi encontrado."));
-        return converterEntidadeParaResponseDTO(funcionario);
+                .orElseThrow(() -> new RuntimeException("O funcionário com este id não foi encontrado."));
+        return converterFuncionarioParaResponseDTO(funcionario);
     }
 
-    public FuncionarioResponseDTO atualizarFuncionario (Long id, FuncionarioRequestDTO requestDTO) {
+    public FuncionarioResponseDTO atualizarFuncionario(Long id, FuncionarioRequestDTO requestDTO) {
         FuncionarioEntity funcionario = funcionarioRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("O funcionário com este id não foi encontrado."));
+                .orElseThrow(() -> new RuntimeException("O funcionário com este id não foi encontrado."));
         BeanUtils.copyProperties(requestDTO, funcionario);
 
         EnderecoEntity endereco = enderecoRepository.findById(requestDTO.getEnderecoId())
@@ -57,18 +58,20 @@ public class FuncionarioService {
         funcionario.setEnderecoEntity(endereco);
 
         funcionarioRepository.save(funcionario);
-        return converterEntidadeParaResponseDTO(funcionario);
+        return converterFuncionarioParaResponseDTO(funcionario);
     }
 
-    public void deletarFuncionario (Long id) {
+    public void deletarFuncionario(Long id) {
         FuncionarioEntity funcionario = funcionarioRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("O funcionário com este id não foi encontrado."));
+                .orElseThrow(() -> new RuntimeException("O funcionário com este id não foi encontrado."));
         funcionarioRepository.delete(funcionario);
     }
 
-    private FuncionarioResponseDTO converterEntidadeParaResponseDTO(FuncionarioEntity funcionario){
-        FuncionarioResponseDTO funcionarioResponseDto= new FuncionarioResponseDTO();
+    private FuncionarioResponseDTO converterFuncionarioParaResponseDTO(FuncionarioEntity funcionario) {
+        FuncionarioResponseDTO funcionarioResponseDto = new FuncionarioResponseDTO();
         BeanUtils.copyProperties(funcionario, funcionarioResponseDto);
         return funcionarioResponseDto;
     }
+
+    protected abstract NutricionistaResponseDTO converterNutricionistaParaResponseDTO(FuncionarioEntity funcionario);
 }
